@@ -1,11 +1,11 @@
 <?php
 
-/* •Ï”‚Ì’è‹` */////////////////////////////////////////////////////////////////////
-  $setchar='Shift_JIS';/* “ú–{Œê•¶šƒZƒbƒg UTF-8, Shift_JIS, EUC-JP,ISO-2022-JP */
-  $pdate=$date=date("<b>Y/m/d H:i </b>");/* “ú©“®‹L“ü‚·‚é‚Æ‚«İ’è */
-  $lmt=100;/* “Še•¶š”§ŒÀ */
-  $kugiri='<hr style="border:1px solid #eee">';/* ‹L–‚Ì‹æØ‚è */
-/* ‚±‚±‚Ü‚Å *///////////////////////////////////////////////////////////////////////
+/* å¤‰æ•°ã®å®šç¾© */////////////////////////////////////////////////////////////////////
+  $setchar='Shift_JIS';/* æ—¥æœ¬èªæ–‡å­—ã‚»ãƒƒãƒˆ UTF-8, Shift_JIS, EUC-JP,ISO-2022-JP */
+  $pdate=$date=date("<b>Y/m/d H:i </b>");/* æ—¥æ™‚è‡ªå‹•è¨˜å…¥ã™ã‚‹ã¨ãè¨­å®š */
+  $lmt=100;/* æŠ•ç¨¿æ–‡å­—åˆ¶é™ */
+  $kugiri='<hr style="border:1px solid #eee">';/* è¨˜äº‹ã®åŒºåˆ‡ã‚Š */
+/* ã“ã“ã¾ã§ *///////////////////////////////////////////////////////////////////////
 
   mb_language("Japanese");
   ini_set('mbstring.internal_encoding',$setchar);
@@ -21,15 +21,15 @@
   $process[]=&$process[$key][stripslashes($k)];}
   else $process[$key][stripslashes($k)]=stripslashes($v);}}
   unset($process);}
-  if(file_exists("hpcomment.msg"))$comment=file_get_contents("hpcomment.msg");
-  $_POST['comment']=str_replace('@','  ',$_POST['comment']);
+  if(file_exists("index.html"))$comment=file_get_contents("index.html");
+  $_POST['comment']=str_replace('ï¿½@','  ',$_POST['comment']);
   if(!preg_match("/[\e\200-\377]/",$_POST['comment'])||mb_strlen($_POST['comment'])>$lmt)$_POST['comment']="";
   if($_POST['comment']){$_POST['comment']=preg_replace("/(\x20|<br>)+$/i","",$_POST['comment']);
   $m1=array('&','"','#','$','%','\'','`','<','>','=','?','/');
   $m2=array('&amp;','&quot;','&#x0023;','&#x0024;','&#x0025;','&#x0027;','&#x0060;','&lt;','&gt;','&#x003D;','&#x003F;','&#x002F;');
   $_POST['comment']=str_replace($m1,$m2,$_POST['comment']);
   $comment=$pdate.$_POST['comment']."\n".$comment;
-  file_put_contents("hpcomment.msg",$comment);
+  file_put_contents("index.html",$comment);
   $btn="parent.document.getElementById('submit').disabled=true;";}
   $comment=str_replace("\r","",rtrim($comment));
   $comment=str_replace("\n","$kugiri",rtrim($comment));
@@ -63,5 +63,3 @@ exit();
 (c)20011 Telecom Corporation.,http://bellcall.co.jp/
 ***/
 ?>
-
-
