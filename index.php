@@ -1,7 +1,7 @@
 <?php
 
 /* 変数の定義 */////////////////////////////////////////////////////////////////////
-  $setchar='Shift_JIS';/* 日本語文字セット UTF-8, Shift_JIS, EUC-JP,ISO-2022-JP */
+  $setchar='utf8';/* 日本語文字セット UTF-8, Shift_JIS, EUC-JP,ISO-2022-JP */
   $pdate=$date=date("<b>Y/m/d H:i </b>");/* 日時自動記入するとき設定 */
   $lmt=100;/* 投稿文字制限 */
   $kugiri='<hr style="border:1px solid #eee">';/* 記事の区切り */
@@ -21,7 +21,7 @@
   $process[]=&$process[$key][stripslashes($k)];}
   else $process[$key][stripslashes($k)]=stripslashes($v);}}
   unset($process);}
-  if(file_exists("index.html"))$comment=file_get_contents("index.html");
+  if(file_exists("hpcomment.msg"))$comment=file_get_contents("hpcomment.msg");
   $_POST['comment']=str_replace('�@','  ',$_POST['comment']);
   if(!preg_match("/[\e\200-\377]/",$_POST['comment'])||mb_strlen($_POST['comment'])>$lmt)$_POST['comment']="";
   if($_POST['comment']){$_POST['comment']=preg_replace("/(\x20|<br>)+$/i","",$_POST['comment']);
@@ -29,14 +29,14 @@
   $m2=array('&amp;','&quot;','&#x0023;','&#x0024;','&#x0025;','&#x0027;','&#x0060;','&lt;','&gt;','&#x003D;','&#x003F;','&#x002F;');
   $_POST['comment']=str_replace($m1,$m2,$_POST['comment']);
   $comment=$pdate.$_POST['comment']."\n".$comment;
-  file_put_contents("index.html",$comment);
+  file_put_contents("hpcomment.msg",$comment);
   $btn="parent.document.getElementById('submit').disabled=true;";}
   $comment=str_replace("\r","",rtrim($comment));
   $comment=str_replace("\n","$kugiri",rtrim($comment));
   if($_GET['rep']&&!$_POST['comment'])$comment="";
   header("cache-control: no-store, no-cache, must-revalidate");
   header("cache-control: post-check=0, pre-check=0");
-  header("content-type: text/html; charset=Shift_JIS");
+  header("content-type: text/html; charset=UTF8");
   if($comment){$comment=preg_replace("/&amp;nbsp;/","&nbsp;",$comment);
     $comment=preg_replace("/&lt;br&gt;/i","<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",$comment);
     $comment=preg_replace("/&lt;b&gt;/i","<b>",$comment);
