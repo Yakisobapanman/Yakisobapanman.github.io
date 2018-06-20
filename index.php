@@ -1,7 +1,7 @@
 <?php
 
 /* 変数の定義 */////////////////////////////////////////////////////////////////////
-  $setchar='utf8';/* 日本語文字セット UTF-8, Shift_JIS, EUC-JP,ISO-2022-JP */
+  $setchar='utf-8';/* 日本語文字セット UTF-8, Shift_JIS, EUC-JP,ISO-2022-JP */
   $pdate=$date=date("<b>Y/m/d H:i </b>");/* 日時自動記入するとき設定 */
   $lmt=100;/* 投稿文字制限 */
   $kugiri='<hr style="border:1px solid #eee">';/* 記事の区切り */
@@ -9,7 +9,7 @@
 
   mb_language("Japanese");
   ini_set('mbstring.internal_encoding',$setchar);
-  if(preg_match('/utf/i',$setchar))$charcode='utf8';
+  if(preg_match('/utf/i',$setchar))$charcode='utf-8';
   if(preg_match('/shift|sjis/i',$setchar))$charcode='sjis';
   if(preg_match('/euc/i',$setchar))$charcode='eucjp';
   if(preg_match('/^jis|2022/i',$setchar))$charcode='jis';
@@ -22,7 +22,7 @@
   else $process[$key][stripslashes($k)]=stripslashes($v);}}
   unset($process);}
   if(file_exists("hpcomment.msg"))$comment=file_get_contents("hpcomment.msg");
-  $_POST['comment']=str_replace('�@','  ',$_POST['comment']);
+  $_POST['comment']=str_replace('　','  ',$_POST['comment']);
   if(!preg_match("/[\e\200-\377]/",$_POST['comment'])||mb_strlen($_POST['comment'])>$lmt)$_POST['comment']="";
   if($_POST['comment']){$_POST['comment']=preg_replace("/(\x20|<br>)+$/i","",$_POST['comment']);
   $m1=array('&','"','#','$','%','\'','`','<','>','=','?','/');
